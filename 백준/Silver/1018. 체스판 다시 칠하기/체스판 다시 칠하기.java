@@ -11,10 +11,13 @@ public class Main {
         int blackCnt = 0;
         for (int i = x; i < x+8; i++) {
             for (int j = y; j < y+8; j++) {
-                if ((i + j) % 2 == 0 && defaultBoard[i][j].equals("B")) whiteCnt++;
-                else if ((i + j) % 2 == 1 && defaultBoard[i][j].equals("W")) whiteCnt++;
-                if ((i + j) % 2 == 0 && defaultBoard[i][j].equals("W")) blackCnt++;
-                else if ((i + j) % 2 == 1 && defaultBoard[i][j].equals("B")) blackCnt++;
+                if ((i + j) % 2 == 0) {
+                    if (defaultBoard[i][j].equals("B")) whiteCnt++;
+                    if (defaultBoard[i][j].equals("W")) blackCnt++;
+                } else {
+                    if (defaultBoard[i][j].equals("W")) whiteCnt++;
+                    if (defaultBoard[i][j].equals("B")) blackCnt++;
+                }
             }
         }
         return Math.min(whiteCnt, blackCnt);
