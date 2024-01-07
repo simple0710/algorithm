@@ -10,24 +10,13 @@ public class Main {
         int N = Integer.parseInt(br.readLine());
         StringTokenizer st = new StringTokenizer(br.readLine());
         Stack<Integer> stack = new Stack<>();
-        int[] line = new int[N];
-        for (int i = 0; i < N; i++) {
-            line[i] = Integer.parseInt(st.nextToken());
-        }
-
         int cnt = 1;
         for (int i = 0; i < N; i++) {
-            if (line[i] == cnt) cnt++;
-            else if (!stack.isEmpty() && stack.peek() == cnt) {
+            stack.push(Integer.parseInt(st.nextToken()));
+            while (!stack.isEmpty() && stack.peek() == cnt) {
                 cnt++;
                 stack.pop();
-                i--;
-            } else stack.push(line[i]);
-        }
-
-        while (!stack.isEmpty() && stack.peek() == cnt) {
-            stack.pop();
-            cnt++;
+            }
         }
         System.out.println(stack.isEmpty() ? "Nice" : "Sad");
     }
