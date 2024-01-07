@@ -30,11 +30,10 @@ public class Main {
         while (!q.isEmpty()) {
             if (now.moveCnt > 0) {
                 for (int i = 1; i < now.moveCnt; i++) q.add(q.poll());
-                now = q.poll();
             } else {
-                for (int i = now.moveCnt; i < -1; i++) q.addFirst(q.pollLast());
-                now = q.pollLast();
+                for (int i = now.moveCnt; i <= -1; i++) q.addFirst(q.pollLast());
             }
+            now = q.poll();
             sb.append(now.idx+1).append(" ");
         }
         System.out.println(sb);
