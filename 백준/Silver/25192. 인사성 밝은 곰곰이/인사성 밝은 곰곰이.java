@@ -13,7 +13,7 @@ public class Main {
             String log = br.readLine();
             if (log.equals("ENTER")) {
                 res += set.size();
-                set = new HashSet<>();
+                set.clear();
             } else set.add(log);
         }
         res += set.size();
