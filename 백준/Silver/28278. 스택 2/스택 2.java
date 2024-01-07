@@ -5,12 +5,11 @@ import java.util.Stack;
 import java.util.StringTokenizer;
 
 public class Main {
-    static Stack<String> stack;
     public static void main(String[] args) throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         StringBuilder sb = new StringBuilder();
         int N = Integer.parseInt(br.readLine());
-        stack = new Stack<>();
+        Stack<String> stack = new Stack<>();
         for (int i = 0; i < N; i++) {
             StringTokenizer st = new StringTokenizer(br.readLine());
             String command = st.nextToken();
