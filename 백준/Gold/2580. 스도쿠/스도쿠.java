@@ -52,8 +52,7 @@ public class Main {
     }
     public static boolean checkColRow(int x, int y, int num) {
         for (int i = 0; i < 9; i++) {
-            if (board[x][i] == num) return false;
-            if (board[i][y] == num) return false;
+            if (board[x][i] == num || board[i][y] == num) return false;
         }
         return true;
     }
