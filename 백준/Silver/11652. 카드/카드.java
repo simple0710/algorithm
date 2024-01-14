@@ -8,14 +8,11 @@ public class Main {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         int N = Integer.parseInt(br.readLine());
         HashMap<Long, Integer> hash = new HashMap<>();
-        for (int i = 0; i < N; i++) {
-            long a = Long.parseLong(br.readLine());
-            if (!hash.containsKey(a)) hash.put(a, 1);
-            else hash.put(a, hash.get(a)+1);
-        }
         long res = 0;
         int cnt = 0;
-        for (long v : hash.keySet()) {
+        for (int i = 0; i < N; i++) {
+            long v = Long.parseLong(br.readLine());
+            hash.put(v, hash.getOrDefault(v, 0) + 1);
             if (cnt < hash.get(v)) {
                 res = v;
                 cnt = hash.get(v);
