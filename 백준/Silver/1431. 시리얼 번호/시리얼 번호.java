@@ -11,7 +11,6 @@ public class Main {
         ArrayList<String> list = new ArrayList<>();
         int N = Integer.parseInt(br.readLine());
         for (int i = 0; i < N; i++) list.add(br.readLine());
-        Collections.sort(list);
         Collections.sort(list, new Comparator<String>() {
             @Override
             public int compare(String a1, String a2) {
@@ -29,6 +28,7 @@ public class Main {
                             sum2 += Integer.parseInt(String.valueOf(a2.charAt(i)));
                         }
                     }
+                    if (sum1 == sum2) return a1.compareTo(a2);
                     return sum1 - sum2;
                 }
             };
