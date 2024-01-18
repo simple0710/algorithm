@@ -10,11 +10,13 @@ public class Main {
 		int N = Integer.parseInt(br.readLine());
 		for (int i = 0; i < N; i++) {
 			StringTokenizer st = new StringTokenizer(br.readLine());
-			String[] A = st.nextToken().split("");
-			String[] B = st.nextToken().split("");
-			Arrays.sort(A);
-			Arrays.sort(B);
-			System.out.println(Arrays.equals(A, B) ? "Possible" : "Impossible");
+			int[] aArr = new int[26];
+			int[] bArr = new int[26];
+			String A = st.nextToken();
+			String B = st.nextToken();
+			for (int j = 0; j < A.length(); j++) aArr[A.charAt(j)-'a']++;
+			for (int j = 0; j < B.length(); j++) bArr[B.charAt(j)-'a']++;
+			System.out.println(Arrays.equals(aArr, bArr) ? "Possible" : "Impossible");
 		}
 	}
 }
