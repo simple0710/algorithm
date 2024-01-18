@@ -7,16 +7,16 @@ public class Main {
 		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 		String[] nums = br.readLine().split("");
 		int[] numArr = new int[10];
+		int res = 0;
 		for (String v : nums) {
 			int now = Integer.parseInt(v);
 			if (now == 6 || now == 9) {
-				if (numArr[6] >= numArr[9]) numArr[9]++;
-				else numArr[6]++;
+				if (numArr[6] >= numArr[9]) now = 9;
+				else now = 6;
 			}
-			else numArr[now]++;
+			numArr[now]++;
+			res = Math.max(res, numArr[now]);
 		}
-		int res = 0;
-		for (int v : numArr) res = Math.max(res, v);
 		System.out.print(res);
 	}
 }
