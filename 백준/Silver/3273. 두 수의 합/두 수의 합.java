@@ -15,14 +15,12 @@ public class Main {
 		Collections.sort(arr);
 		int x = Integer.parseInt(br.readLine());
 		int res = 0;
-		if (N > 1) {
-			int s = 0, e = N-1;
-			while (s < e) {
-				int sum = arr.get(e) + arr.get(s);
-				if (sum == x) res++;
-				if (sum >= x) e--;
-				else s++;
-			}
+		int s = 0, e = N-1;
+		while (s < e) {
+			int sum = arr.get(e) + arr.get(s);
+			if (sum == x) res++;
+			if (sum >= x) e--;
+			else s++;
 		}
 		System.out.print(res);
 	}
