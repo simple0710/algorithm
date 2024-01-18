@@ -14,9 +14,14 @@ public class Main {
 			int[] bArr = new int[26];
 			String A = st.nextToken();
 			String B = st.nextToken();
-			for (int j = 0; j < A.length(); j++) aArr[A.charAt(j)-'a']++;
-			for (int j = 0; j < B.length(); j++) bArr[B.charAt(j)-'a']++;
-			System.out.println(Arrays.equals(aArr, bArr) ? "Possible" : "Impossible");
+			if (A.length() == B.length()) {
+				for (int j = 0; j < A.length(); j++) {
+					aArr[A.charAt(j)-'a']++;
+					bArr[B.charAt(j)-'a']++;
+				}
+				System.out.println(Arrays.equals(aArr, bArr) ? "Possible" : "Impossible");
+			}
+			else System.out.println("Impossible");
 		}
 	}
 }
