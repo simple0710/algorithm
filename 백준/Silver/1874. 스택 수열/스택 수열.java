@@ -16,8 +16,8 @@ public class Main {
 			stack.add(i);
 			sb.append("+\n");
 			while (!stack.isEmpty() && stack.peek() == resArr[idx]) {
-				sb.append("-\n");
 				stack.pop();
+				sb.append("-\n");
 				idx++;
 			}
 		}
