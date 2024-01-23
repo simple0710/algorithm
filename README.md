@@ -1,5 +1,5 @@
 <div align="center">
- <h2>Baekjoon with Java</h2>
+ <h2>Algorithm with Java</h2>
 </div>
 
 <div align="center">
