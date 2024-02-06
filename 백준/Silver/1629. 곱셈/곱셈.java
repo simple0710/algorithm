@@ -13,9 +13,10 @@ public class Main {
 	}
 	
 	public static long recur(Long B) {
-		if (B == 1) return A;
-		if (B % 2 == 0) return getLongPow(recur(B/2)) % C;
-		return (getLongPow(recur(B/2)) * A) % C;
+		if (B == 1) return A % C;
+		long nowLongNum = getLongPow(recur(B/2));
+		if (B % 2 == 0) return nowLongNum;
+		return (nowLongNum * A) % C;
 	}
 	
 	public static long getLongPow(long Num) {
