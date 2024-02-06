@@ -9,7 +9,7 @@ public class Main {
 		A =  Long.parseLong(st.nextToken());
 		long B =  Long.parseLong(st.nextToken());
 		C =  Long.parseLong(st.nextToken());
-		System.out.print(recur(B) % C); 
+		System.out.print(recur(B)); 
 	}
 	
 	public static long recur(Long B) {
