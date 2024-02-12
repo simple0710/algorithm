@@ -58,8 +58,6 @@ public class Main {
 			int ny = head.y + dy[nowD];
 			if (isTouchWallOrBody(nx, ny)) break;
 			
-			if (snakeBoard[nx][ny]) break;
-
 			if (!board[nx][ny]) {
 				Place tail = snake.pollLast();
 				snakeBoard[tail.x][tail.y] = false;
@@ -78,6 +76,6 @@ public class Main {
 	}
 	
 	public static boolean isTouchWallOrBody(int x, int y) {
-		return x <= 0 || x > N || y <= 0 || y > N;
+		return x <= 0 || x > N || y <= 0 || y > N || snakeBoard[x][y];
 	}
 }
