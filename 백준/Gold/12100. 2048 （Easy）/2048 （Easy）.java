@@ -29,8 +29,7 @@ public class Main {
 		}
 		int[][] newBoard = board;
 		for (int i = 0; i < 4; i++) {
-			back(depth + 1, moveLeftBoard(newBoard));
-			newBoard = spinBoard(newBoard);
+			back(depth + 1, moveLeftBoard(newBoard = spinBoard(newBoard)));
 		}
 	}
 	
@@ -47,8 +46,8 @@ public class Main {
 	public static int[][] moveLeftBoard(int[][] board) {
 		int[][] newBoard = new int[N][N];
 		boolean[][] plusCheck = new boolean[N][N];
-		for (int i = 0; i < N; i++) newBoard[i][0] = board[i][0];
 		for (int i = 0; i < N; i++) {
+			newBoard[i][0] = board[i][0];
 			for (int j = 1; j < N; j++) {
 				int x = i, y = j;
 				int now = board[x][y];
