@@ -4,15 +4,13 @@ import java.util.*;
 public class Main {
 	static int res, r, c;
 	static int[] dx = new int[]{0, 0, 1, 1}, dy = new int[]{0, 1, 0, 1};
-	static int[][] board;
 	public static void main(String[] args) throws IOException {
 		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 		StringTokenizer st = new StringTokenizer(br.readLine());
-		int N = Integer.parseInt(st.nextToken());
+		int N = (int) Math.pow(2, Integer.parseInt(st.nextToken()));
 		r = Integer.parseInt(st.nextToken());
 		c = Integer.parseInt(st.nextToken());
-		int area = newPow(N);
-		recur(area, 0, 0);
+		recur(N, 0, 0);
 		System.out.print(res);
 	}
 	
@@ -28,11 +26,5 @@ public class Main {
 			}
 			res += nextN * nextN;
 		}
-	}
-	
-	public static int newPow(int num) {
-		int newNum = 1;
-		while (num-- > 0) newNum *= 2;
-		return newNum;
 	}
 }
