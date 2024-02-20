@@ -4,7 +4,7 @@ import java.util.*;
 public class Main {
 	static StringBuilder sb = new StringBuilder();
 	static int N, M;
-	static int[] nums, numsPick, duplicatedPick;
+	static int[] nums, numsPick;
 	static boolean[] pick;
 	public static void main(String[] args) throws IOException {
 		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
@@ -17,14 +17,13 @@ public class Main {
 		Arrays.sort(nums);
 		pick = new boolean[N];
 		numsPick = new int[M];
-		duplicatedPick = new int[M+1];
 		back(0);
 		System.out.print(sb);
 	}
 
 	public static void back(int depth) {
 		if (depth == M) {
-			for (int v : numsPick) sb.append(v + " ");
+			for (int v : numsPick) sb.append(v).append(" ");
 			sb.append("\n");
 			return;
 		}
