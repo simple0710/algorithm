@@ -21,7 +21,6 @@ public class Main {
 	static int N, M, res;
 	static int[] dx = {-1, 1, 0, 0}, dy = {0, 0, -1, 1};
 	static String[][] board;
-	static Place end;
 	public static void main(String[] args) throws IOException {
 		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 		StringTokenizer st = new StringTokenizer(br.readLine());
@@ -46,11 +45,9 @@ public class Main {
 				}
 			}
 		}
-		end = bq.poll();
-		while (true) {
-			bq = bfs(bq, visited1, false);
+		while (res == 0) {
 			q = bfs(q, visited2, true);
-			if (res != 0) break;
+			bq = bfs(bq, visited1, false);
 		}
 		System.out.print(res);
 	}
@@ -60,7 +57,7 @@ public class Main {
 		int check = Integer.MAX_VALUE;
 		while (!q.isEmpty()) {
 			Place now = q.poll();
-			if (!flag && now.x == end.x && now.y == end.y) res = visited[now.x][now.y].dis;
+			if (flag) board[now.x][now.y] = ".";
 			for (int i = 0; i < 4; i++) {
 				int nx = now.x + dx[i];
 				int ny = now.y + dy[i];
@@ -68,7 +65,6 @@ public class Main {
 					if (visited[nx][ny] == null) {
 						int nowDis = visited[now.x][now.y].dis; 
 						if (board[nx][ny].equals("X")) {
-							if (flag) board[nx][ny] = ".";
 							newQ.add(new Place(nx, ny));
 							nowDis++;
 						} else q.add(new Place(nx, ny));
