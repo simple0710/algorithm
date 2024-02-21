@@ -21,6 +21,7 @@ public class Main {
 	static int N, M, res;
 	static int[] dx = {-1, 1, 0, 0}, dy = {0, 0, -1, 1};
 	static String[][] board;
+	static Place end;
 	public static void main(String[] args) throws IOException {
 		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 		StringTokenizer st = new StringTokenizer(br.readLine());
@@ -45,20 +46,21 @@ public class Main {
 				}
 			}
 		}
+		end = bq.poll();
 		while (true) {
 			bq = bfs(bq, visited1, false);
-			if (res != 0) break;
 			q = bfs(q, visited2, true);
+			if (res != 0) break;
 		}
 		System.out.print(res);
 	}
 	
 	public static ArrayDeque<Place> bfs(ArrayDeque<Place> q, vInfo[][] visited, boolean flag) {
 		ArrayDeque<Place> newQ = new ArrayDeque<>();
-		ArrayList<Integer> touch = new ArrayList<>();
 		int check = Integer.MAX_VALUE;
 		while (!q.isEmpty()) {
 			Place now = q.poll();
+			if (!flag && now.x == end.x && now.y == end.y) res = visited[now.x][now.y].dis;
 			for (int i = 0; i < 4; i++) {
 				int nx = now.x + dx[i];
 				int ny = now.y + dy[i];
