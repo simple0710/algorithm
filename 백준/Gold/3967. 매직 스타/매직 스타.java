@@ -2,7 +2,6 @@ import java.io.*;
 import java.util.*;
 
 public class Main {
-	static int emptyPlace;
 	static int[] numsArr;
 	static char[][] board;
 	static boolean[] pick;
