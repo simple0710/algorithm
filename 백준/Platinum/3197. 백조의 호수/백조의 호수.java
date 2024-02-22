@@ -10,17 +10,11 @@ public class Main {
 			this.y = y;
 		}
 	}
-	public static class vInfo {
-		int dis;
-		int color;
-		vInfo(int dis, int color) {
-			this.dis = dis;
-			this.color = color;
-		}
-	}
-	static int N, M, res;
+	static int N, M;
 	static int[] dx = {-1, 1, 0, 0}, dy = {0, 0, -1, 1};
+	static boolean flag;
 	static String[][] board;
+	static Place end;
 	public static void main(String[] args) throws IOException {
 		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 		StringTokenizer st = new StringTokenizer(br.readLine());
@@ -28,54 +22,53 @@ public class Main {
 		M = Integer.parseInt(st.nextToken());
 		board = new String[N][M];
 		ArrayDeque<Place> bq = new ArrayDeque<>(), q = new ArrayDeque<>();
-		vInfo[][] visited1 = new vInfo[N][M];
-		vInfo[][] visited2 = new vInfo[N][M];
-		int idx = 1;
+		boolean[][] visited1 = new boolean[N][M];
+		boolean[][] visited2 = new boolean[N][M];
 		for (int i = 0; i < N; i++) {
 			board[i] = br.readLine().split("");
 			for (int j = 0; j < M; j++) {
 				if (board[i][j].equals("L")) {
 					board[i][j] = ".";
-					bq.add(new Place(i, j));
-					visited1[i][j] = new vInfo(0, idx++);
+					if(bq.isEmpty()) {
+						visited1[i][j] = true;
+						bq.add(new Place(i, j));
+					} else end = new Place(i, j);
 				}
 				if (board[i][j].equals(".")) {
-					visited2[i][j] = new vInfo(0, 1);
+					visited2[i][j] = true;
 					q.add(new Place(i, j));
 				}
 			}
 		}
-		while (res == 0) {
+		int t = 0;
+		while (true) {
 			q = bfs(q, visited2, true);
 			bq = bfs(bq, visited1, false);
+			if (visited1[end.x][end.y]) break;
+			t++;
 		}
-		System.out.print(res);
+		System.out.print(t);
 	}
 	
-	public static ArrayDeque<Place> bfs(ArrayDeque<Place> q, vInfo[][] visited, boolean flag) {
+	public static ArrayDeque<Place> bfs(ArrayDeque<Place> q, boolean[][] visited, boolean flag) {
 		ArrayDeque<Place> newQ = new ArrayDeque<>();
-		int check = Integer.MAX_VALUE;
 		while (!q.isEmpty()) {
 			Place now = q.poll();
 			if (flag) board[now.x][now.y] = ".";
+			else if (end.equals(now)) {
+				newQ.clear();
+				break;
+			}
 			for (int i = 0; i < 4; i++) {
 				int nx = now.x + dx[i];
 				int ny = now.y + dy[i];
-				if (0 <= nx && nx < N && 0 <= ny && ny < M) {
-					if (visited[nx][ny] == null) {
-						int nowDis = visited[now.x][now.y].dis; 
-						if (board[nx][ny].equals("X")) {
-							newQ.add(new Place(nx, ny));
-							nowDis++;
-						} else q.add(new Place(nx, ny));
-						visited[nx][ny] = new vInfo(nowDis, visited[now.x][now.y].color);
-					} else if(visited[nx][ny].color != visited[now.x][now.y].color) {
-						check = Math.min(check, Math.max(visited[nx][ny].dis, visited[now.x][now.y].dis));
-					}
+				if (0 <= nx && nx < N && 0 <= ny && ny < M && !visited[nx][ny]) {
+					visited[nx][ny] = true;
+					if (board[nx][ny].equals("X")) newQ.add(new Place(nx, ny));
+					else q.add(new Place(nx, ny));
 				}
 			}
 		}
-		if (check != Integer.MAX_VALUE) res = check;
 		return newQ;
 	}
 }
