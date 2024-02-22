@@ -2,10 +2,6 @@ import java.io.*;
 import java.util.*;
 
 public class Main {
-	static int[][] moves1 = {{0, -1}, {-1, -1}, {-1, 0}};
-	static int[][] moves2 = {{-1, 0}, {-1, 1}, {0, 1}};
-	static int[][] moves3 = {{0, 1}, {1, 1}, {1, 0}};
-	static int[][] moves4 = {{1, 0}, {1, -1}, {0, -1}};
 	static int N, M, res;
 	static boolean[][] board;
 	public static void main(String[] args) throws IOException {
@@ -13,7 +9,7 @@ public class Main {
 		StringTokenizer st = new StringTokenizer(br.readLine());
 		N = Integer.parseInt(st.nextToken());
 		M = Integer.parseInt(st.nextToken());
-		board = new boolean[N][M];
+		board = new boolean[N+1][M+1];
 		res = 1;
 		back(0, 0);
 		System.out.print(res);
@@ -22,8 +18,8 @@ public class Main {
 	public static void back(int depth, int start) {
 		if (depth == N * M) return;
 		for (int i = start; i < N * M; i++) {
-			int x = i / M;
-			int y = i % M;
+			int x = i / M + 1;
+			int y = i % M + 1;
 			if (check(x, y)) {
 				res++;
 				board[x][y] = true;
@@ -34,17 +30,6 @@ public class Main {
 	}
 	
 	public static boolean check(int x, int y) {
-		for (int[][] moveType : new int[][][]{moves1, moves2, moves3, moves4}) {
-			int cnt = 0;
-			for (int[] move : moveType) {
-				int nx = x + move[0];
-				int ny = y + move[1];
-				if (0 <= nx && nx < N && 0 <= ny && ny < M && board[nx][ny]) {
-					cnt++;
-				}
-			}
-			if (cnt == 3) return false;
-		}
-		return true;
+		return !(board[x-1][y-1] && board[x-1][y] && board[x][y-1]);
 	}
 }
