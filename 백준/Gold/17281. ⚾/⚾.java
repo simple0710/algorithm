@@ -16,11 +16,11 @@ public class Main {
 				scoreBoard[i][j] = Integer.parseInt(st.nextToken());
 			}
 		}
-		pick = new int[9];
-		pick[3] = 0;
-		visited = new boolean[9];
-		visited[0] = true;
 		playGround = new int[8];
+		pick = new int[9];
+		visited = new boolean[9];
+		pick[3] = 0;
+		visited[0] = true;
 		back(0);
 		System.out.print(res);
 	}
@@ -30,8 +30,7 @@ public class Main {
 			res = Math.max(res, play());
 			return;
 		}
-		if (depth == 3) back(depth+1);
-		else {
+		if (depth != 3) {
 			for (int i = 0; i < 9; i++) {
 				if (!visited[i]) {
 					visited[i] = true;
@@ -41,6 +40,7 @@ public class Main {
 				}
 			}
 		}
+		else back(depth+1);
 	}
 	
 	public static int play() {
@@ -56,10 +56,11 @@ public class Main {
 			if (out == 3) {
 				out = 0;
 				playCnt++;
-				for (int i = 4; i < 8; i++) {
-					totalScore += playGround[i];
+				for (int i = 1; i < 8; i++) {
+					if (4 <= i) totalScore += playGround[i];
+					playGround[i] = 0;
 				}
-				playGround = new int[8];
+				
 			}
 		}
 		return totalScore;
