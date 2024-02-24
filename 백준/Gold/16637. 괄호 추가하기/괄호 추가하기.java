@@ -25,7 +25,6 @@ public class Main {
 			long b = Long.parseLong(str[now + 4]);
 			back(depth+2, cal(sum, cal(a, b, str[now+3]), str[now+1]));
 		}
-		
 	}
 	
 	public static long cal(long a, long b, String c) {
