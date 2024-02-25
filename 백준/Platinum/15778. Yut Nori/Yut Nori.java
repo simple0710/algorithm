@@ -9,6 +9,9 @@ public class Main {
 	}
 	static int res;
 	static int[][] parent;;
+	// 0 평범한 길
+	// 1 rtl
+	// 2 ltr
 	static int[][] board;
 	static String[][] resBoard = new String[][] {
 		"..----..----..----..----..----..".split(""),
@@ -65,7 +68,10 @@ public class Main {
 			int teamNo = color / 'a';
 			int who = find(teamNo, color <= 'D' ? color % 'A' : color % 'a');
 			Info now = team[teamNo][who];
-			if (now.v == -1) now.another.clear();
+			if (now.v == -1) {
+				now.another.clear();
+				continue;
+			}
 			now.v += moveCnt; // 이동
 			if (now.boardCnt == 0) {
 				if (now.v % 5 == 0 && now.v <= 10) {
@@ -79,45 +85,49 @@ public class Main {
 					now.v = 15 + now.v % 6;
 				}
 			} else if (now.boardCnt == 2) {
-				if (now.v == 6) {
+				if (now.v >= 6) {
 					now.boardCnt = 0;
-					now.v = 20;
+					now.v = 20 + now.v % 6;
 				}
 			}
 			
+			// 목적지 도착
 			if (now.v >= 21) {
 				for (int i = 0; i < 4; i++) {
-					if (find(teamNo, i) == who) now.v = 0;
+					if (find(teamNo, i) == who) now.v = -1;
 				}
 			}
-			
-			for (int i = 0; i < 4; i++) {
-				if (i != who && team[teamNo][i].boardCnt == now.boardCnt && team[teamNo][i].v == now.v) {
-					union(teamNo, i, who);
-					if (find(teamNo, i) < who) {
-						team[teamNo][i].another.addAll(now.another);
-						now.v = 0;
-						now.another.clear();
-						team[teamNo][i].another.add(who);
-					} else {
-						now.another.addAll(team[teamNo][i].another);
-						team[teamNo][i].v = 0;
-						team[teamNo][i].another.clear();
-						now.another.add(i);
-					}
-					break;
-				}
-			}
-			
-			for (int i = 0; i < 4; i++) {
-				if (team[1-teamNo][i].boardCnt == now.boardCnt && team[1-teamNo][i].v == now.v) {
-					team[1-teamNo][i].another.clear();
-					team[1-teamNo][i].v = 0;
-					for (int j = 0; j < 4; j++) {
-						if (find(1-teamNo, j) == i) {
-							parent[1-teamNo][j] = j;
-							team[1-teamNo][i].another.clear();
+			else {
+				for (int i = 0; i < 4; i++) {
+					if (i != who && team[teamNo][i].boardCnt == now.boardCnt && team[teamNo][i].v == now.v) {
+						union(teamNo, i, who);
+						if (find(teamNo, i) < who) {
+							team[teamNo][i].another.addAll(now.another);
+							now.v = 0;
+							now.another.clear();
+							team[teamNo][i].another.add(who);
+						} else {
+							now.another.addAll(team[teamNo][i].another);
+							team[teamNo][i].v = 0;
+							team[teamNo][i].another.clear();
+							now.another.add(i);
 						}
+						break;
+					}
+				}
+				
+				for (int i = 0; i < 4; i++) {
+					int enemy = find(1-teamNo, i);
+					if (team[1-teamNo][enemy].boardCnt == now.boardCnt && team[1-teamNo][enemy].v == now.v) {
+						team[1-teamNo][enemy].v = 0;
+						team[1-teamNo][enemy].boardCnt = 0;
+						for (int v : team[1-teamNo][enemy].another) {
+							parent[1-teamNo][v] = v;
+							team[1-teamNo][v].boardCnt = 0;
+							team[1-teamNo][v].another.clear();
+						}
+						team[1-teamNo][enemy].another.clear();
+						break;
 					}
 				}
 			}
@@ -127,18 +137,30 @@ public class Main {
 		int[][] moveArr3 = {{0, 0}, {5, 5}, {10, 10}, {15, 15}, {20, 20}, {25, 25}};
 		int[][][] moveArr = new int[][][]{moveArr1, moveArr2, moveArr3};
 		for (int i = 0; i < 2; i++) {
+			boolean [] check = new boolean[4]; 
 			for (int j = 0; j < 4; j++) {
-				if (team[i][j].boardCnt == 0 && team[i][j].v == 0) continue;
-				int x = moveArr[team[i][j].boardCnt][team[i][j].v][0] + j / 2;
-				int y = moveArr[team[i][j].boardCnt][team[i][j].v][1] + j % 2;
-				for (int v : team[i][j].another) {
-					int nx = moveArr[team[i][j].boardCnt][team[i][j].v][0] + v / 2;
-					int ny = moveArr[team[i][j].boardCnt][team[i][j].v][1] + v % 2;
-					resBoard[nx][ny] = String.valueOf((char) (v + (i == 0 ? 'A' : 'a')));
-				}
+				Info now = team[i][find(i, j)];
+				if ((now.boardCnt == 0 && now.v <= 0)) continue;
+				if (check[find(i, j)]) continue;
+				check[j] = true;
+				int x = moveArr[now.boardCnt][now.v][0] + j / 2;
+				int y = moveArr[now.boardCnt][now.v][1] + j % 2;
 				resBoard[x][y] = String.valueOf((char) (j + (i == 0 ? 'A' : 'a')));
+				for (int v : now.another) {
+					x = moveArr[now.boardCnt][now.v][0] + v / 2;
+					y = moveArr[now.boardCnt][now.v][1] + v % 2;
+					resBoard[x][y] = String.valueOf((char) (v + (i == 0 ? 'A' : 'a')));
+				}
 			}
 		}
+		// 윷놀이 결과
+//		for (Info v : team[0]) {
+//			System.out.println(v.boardCnt + " " + v.v + " " + v.another);
+//		}
+//		System.out.println();
+//		for (Info v : team[1]) {
+//			System.out.println(v.boardCnt + " " + v.v + " " + v.another);
+//		}
 		StringBuilder sb = new StringBuilder();
 		for (String[] row : resBoard) {
 			for (String v : row) sb.append(v);
@@ -167,7 +189,7 @@ public class Main {
 	
 	public static int[][] getMoveArr() {
 		int[] dx = {-6, 0, 6, 0}, dy = {0, -6, 0, 6};
-		int[][] moveArr = new int[20][];
+		int[][] moveArr = new int[21][];
 		int nx = 30, ny = 30;
 		int d = 0;
 		int cnt = 0;
@@ -180,6 +202,7 @@ public class Main {
 			nx += dx[d];
 			ny += dy[d];
 		}
+		moveArr[cnt] = new int[] {nx, ny};
 		return moveArr;
 	}
 }
