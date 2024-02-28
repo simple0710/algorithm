@@ -94,21 +94,13 @@ public class Main {
 	}
 	
 	public static Data[] miniSpin3() {
-		Data[] newNumBoard = new Data[4];
 		spin = (spin + 1) % 4;
-		for (int i = 0; i < 4; i++) {
-			newNumBoard[i] = numBoard[i];
-		}
-		return newNumBoard;
+		return numBoard;
 	}
 	
 	public static Data[] miniSpin4() {
 		spin = (spin + 3) % 4;
-		Data[] newNumBoard = new Data[4];
-		for (int i = 0; i < 4; i++) {
-			newNumBoard[i] = numBoard[i];
-		}
-		return newNumBoard;
+		return numBoard;
 	}
 	
 	public static Data[] miniSpin5() {
@@ -127,12 +119,6 @@ public class Main {
 		newNumBoard[2] = numBoard[0];
 		newNumBoard[3] = numBoard[2];
 		return newNumBoard;
-	}
-	
-	public static void swap(Data[] numBoard, int v) {
-		boolean temp = numBoard[v].lr;
-		numBoard[v].lr = numBoard[v].ud;
-		numBoard[v].ud = temp;
 	}
 	
 	public static void finalSpin(Data now, int N, int M, int r1, int c1, int r2, int c2) {
