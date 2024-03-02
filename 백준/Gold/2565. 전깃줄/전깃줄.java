@@ -12,19 +12,20 @@ public class Main {
 			int b = Integer.parseInt(st.nextToken());
 			list.add(new int[] {a, b});
 		}
-		Collections.sort(list, (o1, o2) -> Integer.compare(o1[1], o2[1]));
+		Collections.sort(list, (o1, o2) -> Integer.compare(o1[0], o2[0]));
 		int[] dp = new int[N];
 		int connect = 0;
 		for (int i = 0; i < N; i++) {
-			for (int j = 1; j < N; j++) {
+			dp[i] = 1;
+			for (int j = 0; j < i; j++) {
 				int[] a = list.get(i);
 				int[] b = list.get(j);
-				if ((a[0] < b[0] && a[1] < b[1]) || (a[0] > b[0] && a[1] > b[1])) {
-					dp[j] = Math.max(dp[i] + 1, dp[j]);
-					connect = Math.max(connect, dp[j]);
-				}	
+				if (a[1] > b[1]) {
+					dp[i] = Math.max(dp[i], dp[j] + 1);
+					connect = Math.max(connect, dp[i]);
+				}
 			}
 		}
-		System.out.println(N-connect);
+		System.out.print(N-connect);
 	}
 }
