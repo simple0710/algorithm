@@ -8,10 +8,10 @@ public class Main {
 		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 		N = Integer.parseInt(br.readLine());
 		StringTokenizer st = new StringTokenizer(br.readLine());
-		res = 1;
-		sortArr = new int[N+1];
+		res = 0;
+		sortArr = new int[N];
 		Arrays.fill(sortArr, Integer.MAX_VALUE);
-		for (int i = 1; i < N+1; i++) {
+		for (int i = 0; i < N; i++) {
 			binarySearch(Integer.parseInt(st.nextToken()));
 		}
 		System.out.print(res);
