@@ -13,10 +13,7 @@ public class Main {
 			StringTokenizer st = new StringTokenizer(br.readLine());
 			arr = new int[N+1];
 			team = new int[N+1];
-			for (int i = 1; i <= N; i++) {
-				arr[i] = Integer.parseInt(st.nextToken());
-				if (i == arr[i]) team[i] = 2;
-			}
+			for (int i = 1; i <= N; i++) arr[i] = Integer.parseInt(st.nextToken());
 			int res = 0;
 			for (int i = 1; i <= N; i++) {
 				if (team[i] == 0) dfs(i);
