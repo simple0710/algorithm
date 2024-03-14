@@ -31,7 +31,7 @@ public class Main {
 					update(1, 0, N-1, A, b);
 					update(1, 0, N-1, B, a);
 				} else {
-					res = new int[] {N+1, 0};
+					res = new int[] {N, 0};
 					query(1, 0, N-1, A, B);
 					sb.append((res[0] == A && res[1] == B) ? "YES" : "NO").append("\n");
 				}
@@ -51,15 +51,16 @@ public class Main {
 		return segTree[node] = new int[] {Math.min(v1[0], v2[0]), Math.max(v1[1], v2[1])};
 	}
 	
-	public static boolean query(int node, int start, int end, int left, int right) {
-		if (right < start || end < left) return false;
+	public static void query(int node, int start, int end, int left, int right) {
+		if (right < start || end < left) return;
 		if (left <= start && end <= right) {
 			res[0] = Math.min(res[0], segTree[node][0]);
 			res[1] = Math.max(res[1], segTree[node][1]);
-			return false;
+			return;
 		}
 		int mid = (start + end) / 2;
-		return query(node * 2, start, mid, left, right) || query(node * 2 + 1, mid + 1, end, left, right);
+		query(node * 2, start, mid, left, right);
+		query(node * 2 + 1, mid + 1, end, left, right);
 	}
 	
 	public static int[] update(int node, int start, int end, int idx, int cNum) {
