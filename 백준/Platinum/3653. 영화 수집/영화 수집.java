@@ -36,12 +36,6 @@ public class Main {
 		System.out.print(sb);
 	}
 	
-	public static int init(int node, int start, int end) {
-		if (start == end) return segTree[node] = 1;
-		int mid = (start + end) / 2;
-		return segTree[node] = init(node * 2, start, mid) + init(node * 2 + 1, mid + 1, end);
-	}
-	
 	public static int query(int node, int start, int end, int left, int right) {
 		if (end < left || right < start) return 0;
 		if (left <= start && end <= right) return segTree[node];
