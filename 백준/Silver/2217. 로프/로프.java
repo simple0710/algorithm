@@ -9,9 +9,7 @@ public class Main {
 		for (int i = 0; i < N; i++) arr[i] = Integer.parseInt(br.readLine());
 		Arrays.sort(arr, Collections.reverseOrder());
 		int res = 0;
-		for (int i = 0; i < N; i++) {
-			res = Math.max(res, arr[i] * (i+1));
-		}
+		for (int i = 0; i < N; i++) res = Math.max(res, arr[i] * (i+1));
 		System.out.print(res);
 	}
 }
