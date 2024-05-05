@@ -14,16 +14,16 @@ public class Main {
 			input = br.readLine().split(" ");
 			int a = Integer.parseInt(input[0]);
 			int b = Integer.parseInt(input[1]);
-			for (int i = K; i >= 1; i--) {
+			for (int i = K; i >= 2; i--) {
 				for (int j = a; j <= MAX; j++) {
 					dp[i][j] = dp[i][j] || dp[i - 1][j - a];
 				}
 			}
+			dp[1][a] = true;
 		}
 		int res = 0;
 		for (int i = 1; i <= MAX; i++) {
-			if (dp[K][i])
-				res = Math.max(res, i * (MAX - i));
+			if (dp[K][i]) res = Math.max(res, i * (MAX - i));
 		}
 		System.out.print(res);
 	}
