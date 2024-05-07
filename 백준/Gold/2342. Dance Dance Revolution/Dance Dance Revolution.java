@@ -1,47 +1,41 @@
 import java.io.*;
-import java.util.*;
 
 public class Main {
-	public static void main(String[] args) throws IOException {
-		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-		StringTokenizer st = new StringTokenizer(br.readLine());
-		ArrayList<Integer> list = new ArrayList<>();
-		int now;
-		while ((now = Integer.parseInt(st.nextToken())) != 0) list.add(now);
-		int[][][] dp = new int[list.size() + 1][5][5];
-		dp[0][0][0] = 1;
-		for (int t = 1; t <= list.size(); t++) {
-			now = list.get(t-1);
-			for (int i = 0; i < 5; i++) {
-				for (int j = 0; j < 5; j++) {
-					if (dp[t-1][i][j] != 0) {
-						if (now != j) {
-							int power1 = getPower(i, now);
-							dp[t][now][j] = Math.min(dp[t][now][j] == 0 ? Integer.MAX_VALUE : dp[t][now][j], dp[t-1][i][j] + power1);
-						}
-						if (now != i) {
-							int power2 = getPower(j, now);
-							dp[t][i][now] = Math.min(dp[t][i][now] == 0 ? Integer.MAX_VALUE : dp[t][i][now], dp[t-1][i][j] + power2);
-						}
-					}
-				}
-			}
-		}
-		int res = Integer.MAX_VALUE;
-		for (int i = 0; i < 5; i++) {
-			for (int j = 0; j < 5; j++) {
-				if (dp[list.size()][i][j] != 0) {
-					res = Math.min(res, dp[list.size()][i][j] - 1);
-				}
-			}
-		}
-		System.out.print(res);
-	}
+    static final int MAX = 400_000;
+    public static void main(String[] args) throws Exception {
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        String[] input = ("0 "+ br.readLine()).split(" ");
+        int len = input.length-1;
+        int[][][] dp = new int[len][5][5];
+        for (int i = 0; i < len; i++) {
+            for (int j = 0; j <= 4; j++) {
+                for (int k = 0; k <= 4; k++) {
+                    dp[i][j][k] = MAX;
+                }
+            }
+        }
+        dp[0][0][0] = 0;
+        for (int i = 1; i < len; i++) {
+            int now = Integer.parseInt(input[i]);
+            for (int j = 0; j <= 4; j++) {
+                for (int k = 0; k <= 4; k++) {
+                    dp[i][now][j] = Math.min(dp[i][now][j], dp[i-1][k][j] + getMove(k, now));
+                    dp[i][j][now] = Math.min(dp[i][j][now], dp[i-1][j][k] + getMove(k, now));
+                }
+            }
+        }
+        int res = MAX;
+        for (int i = 0; i <= 4; i++) {
+            res = Math.min(res, dp[len-1][i][Integer.parseInt(input[len-1])]);
+            res = Math.min(res, dp[len-1][Integer.parseInt(input[len-1])][i]);
+        }
+        System.out.print(res);
+    }
 
-	private static int getPower(int foot, int now) {
-		if (foot == now) return 1;
-		else if (foot == 0) return 2;
-		else if (Math.abs(foot - now) == 3 || Math.abs(foot - now) == 1) return 3;
-		return 4;
-	}
+    public static int getMove(int a, int b) {
+        if (a == 0) return 2;
+        else if (a == b) return 1;
+        else if (Math.abs(a-b) == 2) return 4;
+        else return 3;
+    }
 }
