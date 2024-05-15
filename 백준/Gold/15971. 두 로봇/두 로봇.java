@@ -31,7 +31,7 @@ public class Main {
         }
         distance = new int[N+1];
         bfs(A);
-        System.out.print(N <= 2 ? 0 : bfs(B));
+        System.out.print(A == B ? 0 : bfs(B));
     }
 
     public static int bfs(int start) {
