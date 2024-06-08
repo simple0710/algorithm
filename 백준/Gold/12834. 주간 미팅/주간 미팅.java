@@ -49,8 +49,8 @@ public class Main {
     	
     	long res = 0;
     	for (int now: home) {
-    			res += visited1[now] == INF ? -1 : visited1[now];
-    			res += visited2[now] == INF ? -1 : visited2[now];
+			res += visited1[now] == INF ? -1 : visited1[now];
+			res += visited2[now] == INF ? -1 : visited2[now];
     	}
     	System.out.print(res);
     }
