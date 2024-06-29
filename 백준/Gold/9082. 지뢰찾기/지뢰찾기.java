@@ -23,7 +23,7 @@ public class Main {
                 }
             }
 
-            for (int i = 0; i < N-1; i++){
+            for (int i = 0; i < N; i++){
                 if (!words[i].equals("*")) {
                     boolean flag = true;
                     for (int d : dx) {
@@ -39,7 +39,6 @@ public class Main {
                     }
                 }
             }
-            if (numArr[N-1] == 1) res++;
             System.out.println(res);
         }
     }
