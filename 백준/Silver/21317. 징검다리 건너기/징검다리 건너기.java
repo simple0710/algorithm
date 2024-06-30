@@ -15,11 +15,7 @@ public class Main {
             String[] input = br.readLine().split(" ");
             small[i] = Integer.parseInt(input[0]);
             big[i] = Integer.parseInt(input[1]);
-            dp[0][i] = MAX;
-            dp[1][i] = MAX;
         }
-        dp[0][0] = 0;
-        dp[1][0] = 0;
         K = Integer.parseInt(br.readLine());
         for (int i = 1; i < N; i++) {
             dp[0][i] = dp[0][i-1] + small[i-1];
