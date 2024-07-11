@@ -10,7 +10,6 @@ public class Main {
         N = Integer.parseInt(br.readLine());
         int[] heart = new int[3];
         int[] body = new int[2];
-        int cnt = 0;
         board = new char[N][N];
         for (int i = 0; i < N; i++) {
             board[i] = br.readLine().toCharArray();
