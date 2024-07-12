@@ -10,7 +10,7 @@ public class Main {
         X = Integer.parseInt(input[1]);
         res = 0;
         cnt = 0;
-        arr = new int[N+X+1];
+        arr = new int[N+X];
         input = br.readLine().split(" ");
         for (int i = X; i < N+X; i++) {
             arr[i] = Integer.parseInt(input[i-X]) + arr[i-1];
