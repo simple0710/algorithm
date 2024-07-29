@@ -1,5 +1,4 @@
 import java.io.*;
-import java.util.*;
 
 public class Main {
     static int[][] favInfo;
@@ -58,14 +57,12 @@ public class Main {
                             } else cut[m][g] = true;
                         } else {
                             pair[m] = g;
+                            out[g] = true;
                             pairCnt++;
                         }
                         break;
                     }
                 }
-            }
-            for (int i = 1; i <= 5; i++) {
-                if (pair[i] != 0) out[pair[i]] = true;
             }
         }
         return pair[1];
