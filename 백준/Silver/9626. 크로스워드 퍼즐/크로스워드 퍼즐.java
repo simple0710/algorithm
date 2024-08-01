@@ -11,25 +11,25 @@ public class Main {
         int L = Integer.parseInt(input[1]);
         int R = Integer.parseInt(input[2]);
         int D = Integer.parseInt(input[3]);
-        int col = M+U+D;
-        int row = N+L+R;
-        Character[][] board = new Character[col][row];
-        for (int i = U; i < col-D; i++) {
+        int row = M+U+D;
+        int col = N+L+R;
+        Character[][] board = new Character[row][col];
+        for (int i = U; i < row-D; i++) {
             String line = br.readLine();
-            for (int j = L; j < row-R; j++) {
+            for (int j = L; j < col-R; j++) {
                 board[i][j] = line.charAt(j-L);
             }
         }
         boolean flag = false;
         StringBuilder sb = new StringBuilder();
-        for (int i = 0; i < col; i++) {
-            for (int j = 0; j < row; j++) {
+        for (int i = 0; i < row; i++) {
+            for (int j = 0; j < col; j++) {
                 if (board[i][j] == null) board[i][j] = flag ? '.' : '#';
                 sb.append(board[i][j]);
                 flag = !flag;
             }
             sb.append("\n");
-            if (row % 2 == 0) flag = !flag;
+            if (col % 2 == 0) flag = !flag;
         }
         System.out.print(sb);
     }
