@@ -9,9 +9,7 @@ public class Main {
         dp[0][0] = 1;
         for (int i = 1; i <= N; i++) {
             for (int j = i; j <= M; j++) {
-                for (int k = 0; k < j; k++) {
-                    dp[i][j] += dp[i-1][k];
-                }
+                dp[i][j] = dp[i][j-1] + dp[i-1][j-1];
             }
         }
         System.out.print(dp[N][M]);
